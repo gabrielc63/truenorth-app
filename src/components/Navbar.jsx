@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -15,11 +16,17 @@ const CustomNavbar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/welcome">Home</Nav.Link>
+            <NavLink className="nav-link" to="/welcome">
+              Home
+            </NavLink>
             {user ? (
-              <Nav.Link href="/logout">Logout</Nav.Link>
+              <NavLink className="nav-link" to="/logout">
+                Logout
+              </NavLink>
             ) : (
-              <Nav.Link href="/login">Login</Nav.Link>
+              <NavLink className="nav-link" to="/login">
+                Login
+              </NavLink>
             )}
           </Nav>
         </Navbar.Collapse>
