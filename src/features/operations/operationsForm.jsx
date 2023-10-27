@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { usePostOperationMutation } from "./operationsApiSlice";
-import { Form, Row, Button, Col, Container, Card } from "react-bootstrap";
+import { Form, Row, Button, Col, Container } from "react-bootstrap";
 
 const OperationsForm = () => {
   const [value1, setValue1] = useState("");

@@ -8,3 +8,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 npm install
 npm start
 ```
+
+### Test user
+
+```
+username: gabrielc
+password: abc123
+```
