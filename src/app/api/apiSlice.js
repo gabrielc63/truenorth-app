@@ -1,13 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setCredentials, logOut } from "../../features/auth/authSlice";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:4000",
+  baseUrl: apiUrl,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token;
     if (token) {
-      headers.set("authorization", `Bearer ${token}`);
+      headers.set("Authorization", `Bearer ${token}`);
     }
     return headers;
   },
@@ -16,10 +18,14 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result?.error?.originalStatus === 403) {
+  if (result.error && result.error.status === 401) {
     console.log("sending refresh token");
     // send refresh token to get new access token
-    const refreshResult = await baseQuery("/refresh", api, extraOptions);
+    const refreshResult = await baseQuery(
+      { url: "/api/v1/refresh_token", method: "POST" },
+      api,
+      extraOptions
+    );
     console.log(refreshResult);
     if (refreshResult?.data) {
       const user = api.getState().auth.user;
